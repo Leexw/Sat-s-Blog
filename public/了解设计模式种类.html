@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>常见的设计模式</title>
+
+</head>
+<body>
+<p>很久之前就买了设计模式那本书，一直都没看下去，原因到了今天才发现，就是抽象工厂模式，实在是太过晦涩，读起来太费劲，太通用了就很难理解。</p>
+
+<p>后来在网上寻找工厂方法模式的解释，发现一个好网站<a href="http://design-patterns.readthedocs.org/zh_CN/latest/index.html">图说设计模式</a>，写得真是很好。</p>
+
+<p>简单记录一下自己的理解</p>
+
+<h3>常见的设计模式</h3>
+
+<h4>创建型模式</h4>
+
+<p><strong>工厂模式</strong>：<code>统一的初始化</code>。分为简单工厂模式、工厂方法模式、抽象工厂模式。</p>
+
+<ul>
+<li>简单工厂模式，可概括为在工厂类提供接口，并在工厂类完成所有产品的初始化。</li>
+<li>工厂方法模式，可概括为在工厂类提供接口，在具体子工厂类中完成产品的初始化。</li>
+<li>抽象工厂模式，没搞懂，说是最通用、最具一般性的工厂模式。
+总的来说，就是提供统一的接口进行初始化，实现上并符合开闭原则。</li>
+</ul>
+
+
+<p><strong>建造者模式</strong>：<code>抽离初始化</code>。这个比较好理解，就是抽离初始化的逻辑，使之与其他逻辑解耦。</p>
+
+<p><strong>单例模式</strong>：用得太多了，就是确保只有一个实例，并提供全局可访问的方法。
+此外，还有多例模式，是单例的推广，例如GCD的线程池。</p>
+
+<p><strong>原型模式</strong>：使用存在的实例进行拷贝，以声称实例的方法。例如OC中生成对象就是通过原型模式，是通过拷贝类对象的原型来生成的。</p>
+
+<p><strong>惰性初始化模式</strong>：这个在iOS开发中也很常见，就是推迟对象的初始化，直到需要使用到的时候才进行创建，用于提高性能。</p>
+
+<p><strong>对象池模式</strong>：通过回收对象来避免不停地初始化与释放，在以前的下载库也是使用到。</p>
+
+<h4>结构型模式</h4>
+
+<p><strong>适配器模式</strong>：<code>新瓶装旧酒</code>。提供所需接口给使用者。</p>
+
+<p><strong>桥接模式（Bridge Pattern）</strong>：<code>继承转关联</code>。用意是使得类与类之间解藕，由继承关系改成关联关系，使得两个类可以独立变化，所以叫做桥接模式</p>
+
+<p><strong>装饰模式（Decorator Pattern）</strong>：<code>通过重新包装新增特性</code>。通过包装已有类，给原有类添加新功能的方式，而非继承非扩展，则为装饰模式。这也是一种松耦合，符合开闭原则。</p>
+
+<p><strong>门面模式（Facade Pattern）</strong>：<code>统一接口</code>。提供统一的外部接口的模式，与工厂方法有些类似，不过这里不是指初始化，是一种对象结构型模式。违反开闭原则。</p>
+
+<p><strong>享元模式（Flyweight Pattern）</strong>：跟对象池模式类似，只是这里更细粒度，通过构建对象的结构，分为内部状态和外部状态，内部状态是共性，外部状态表示个性特征。所以这种模式称为对象结构型模式。</p>
+
+<p><strong>代理模式（Proxy pattern）</strong>：通过第三方实现某些功能的方式，能提高通用性，更加灵活。</p>
+
+<h4>行为型模式</h4>
+
+<p><strong>命令模式（Command Pattern）</strong>：<code>将消息与接收者封装为命令对象</code>。将命令请求和接收者进行封装对象，但发送者不知道接收者是谁，发送者只发送封装后的命令对象，使得发送者与接收者完全解耦。</p>
+
+<p><strong>中介者模式（Mediator Pattern）</strong>：<code>通过中介给强关联对象解耦</code>。用于解决对象间具有强烈关联关系的耦合，通过中介者将二者关联起来，从而两者关系耦合度大大降低。</p>
+
+<p><strong>观察者模式（Observer Pattern）</strong>：<code>发布－订阅</code>。在iOS开发中很常见。与命令模式很像，但区别在于观察者模式中发送者和消息对象都不知道接收者是谁。也叫做发布－订阅模式。</p>
+
+<p><strong>状态模式（State Pattern）</strong>：没什么好通用的，就是可通过状态变化而改变对象的行为。</p>
+
+<p><strong>策略模式（）</strong>：<code>低成本地替换方案</code>。封装好一系列同等作用的解决策略，并可以方便替换。使得解决策略可以独立变化。</p>
+
+<h3>设计模式的六大原则</h3>
+
+<p>上诉设计模式可以好好理解，并拿来就用，但千万不束缚了自己创造力。有效果的就是好招。</p>
+
+<p>看到这篇关于设计原则的<a href="http://www.uml.org.cn/sjms/201211023.asp">文章</a>，可以看看</p>
+
+<p><strong>单一职责</strong>：一个类做好一件事。</p>
+
+<p><strong>里氏替换</strong>：父类对象能够完全被子类对象替换，而不改变行为。</p>
+
+<p><strong>依赖倒置</strong>：细节应该依赖于抽象，而不应该依赖于细节。相对于细节的多变性，抽象的东西要稳定的多。不是很好理解，觉得这个原则不太像原则。这里改成<code>依赖抽象</code>好像更合适。</p>
+
+<p><strong>接口隔离</strong>：这个不算什么原则。定义是客户不应该依赖它不需要的接口；一个类对另一个类的依赖应该建立在最小的接口上。</p>
+
+<p><strong>迪米特法则(Law of Demeter)</strong>：最少关联原则。一个对象应该对其他对象保持最少了解。</p>
+
+<p><strong>开闭原则</strong>：对扩展开放，并修改关闭。</p>
+</body>
+</html>
