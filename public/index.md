@@ -15,9 +15,9 @@
 
 ****
 -	[迅雷云播App架构分享](experience/迅雷云播App架构分享/index.html)
--	[ios推送准备工作](experience/ios推送准备工作.html)
+-	[iOS推送准备工作](experience/iOS推送准备工作.html)
 - 	[搭建项目基本步骤说明](experience/搭建项目基本步骤说明.htm)
-- 	[如何在AppStore创建新应用](experience/如何在appstore创建新应用.html)
+- 	[如何在AppStore创建新应用](experience/如何在AppStore创建新应用.html)
 - 	[迅雷云打包注意事项](experience/迅雷云打包注意事项.html)
 - 	[如何提交应用二进制文件](experience/如何提交应用二进制文件.html)
 
