@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>如何提交应用二进制文件</title>
+
+</head>
+<body>
+<blockquote><p>注:此文档适⽤于Xcode4.5或之后，此前是使⽤专⻔的软件 Application loader上传⼆进制包，现在Xcode把这个功能集合进来。</p></blockquote>
+
+<h3>提交应用的二进制⽂件有以下步骤:</h3>
+
+<ul>
+<li>在开始之前先做好两项准备工作;</li>
+<li>打开该App的工程⽂文件 ，选择发布证书;</li>
+<li>查看Scheme中的archive是否选择为Distribution;</li>
+<li>开始编译，在Xcode菜单栏点击 Product -> Archive ;</li>
+<li>验证该App 发布包;</li>
+<li>点击Distribute，发布;</li>
+</ul>
+
+
+<h4>⼀、在开始之前先做好两项准备工作（修改iTunesConnect中App的状态和添加发布证书）</h4>
+
+<ul>
+<li><p><strong>确保iTunes Connect中，该App的状态为waiting for upload</strong>
+配图中的状态为prepare for upload , 点击右上角的Ready to Upload Binary 就⾏
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/Screen%20Shot%202015-05-23%20at%2010.55.11%20AM.png" width=100% alt="" />
+点击之后,App状态变为
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/Screen%20Shot%202015-05-23%20at%2010.55.57%20AM.png" width=100% alt="" /></p></li>
+<li><p><strong>找到此前创建该App的发布证书，双击打开该证书,其会自动加⼊到 Xcode中</strong>
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/Screen%20Shot%202015-05-23%20at%2010.57.10%20AM.png" width=100% alt="" />
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/5A3832CA-6A73-48D6-B68D-64E6415B4068.png" width=100% alt="" /></p></li>
+</ul>
+
+
+<h4>二、打开该App的⼯程⽂件，选择发布证书</h4>
+
+<p>点击⼯程⽂文件 -> Targets - > Build Setting -> Code Signing -> Distribution</p>
+
+<h4>三、查看Scheme中的archive是否选择为Distribution</h4>
+
+<p>点击左上角的⼯程名称(cloudspaceHD),再点击Edit scheme 就进⼊此界⾯
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/Screen%20Shot%202015-05-23%20at%2011.01.19%20AM.png" width=100% alt="" /></p>
+
+<h4>四、开始编译</h4>
+
+<p>在Xcode菜单栏点击 Product -> Archive ，完成之后显示为
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/Screen%20Shot%202015-05-23%20at%2011.02.28%20AM.png" width=100% alt="" /></p>
+
+<h4>五、验证该App 发布包</h4>
+
+<p>点击上诉界面的Validate</p>
+
+<p>这⼀步是选择你要发布的程序、和签名标识，点击之后会有等待进度条，之后按提⽰操作;</p>
+
+<p><img src="http://7xitbl.com1.z0.glb.clouddn.com/Screen%20Shot%202015-05-23%20at%2011.04.15%20AM.png" width=100% alt="" /></p>
+
+<p>另外，很有可能出现下图这种情况:
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/Screen%20Shot%202015-05-23%20at%2011.05.02%20AM.png" width=100% alt="" /></p>
+
+<p>原因是该App项目中含有依托项目⼯程，如下载库等，这些依托⼯程中要编译参数没有设置好。</p>
+
+<p> 解决⽅法为回到该App⼯程⽂件中，点击所有的依托项目，Tarket->Build Settings->Deployment->Skip Install ，选择Yes!</p>
+
+<p>注意:是依托⼯程,该App的⼯程不要改!</p>
+
+<h4>六、Distribute</h4>
+
+<p>选择Distribute按钮,出现
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/Screen%20Shot%202015-05-23%20at%2011.06.57%20AM.png" width=100% alt="" /></p>
+
+<p>选中第⼀个就好，发布、上传，之后会有等待进度条，直到上传成功，之后在iTunes Connect中程序的状态会变为</p>
+
+<p><img src="http://7xitbl.com1.z0.glb.clouddn.com/Screen%20Shot%202015-05-23%20at%2011.07.49%20AM.png" width=100% alt="" /></p>
+</body>
+</html>

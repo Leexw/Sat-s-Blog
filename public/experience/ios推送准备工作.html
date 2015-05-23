@@ -1,0 +1,325 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>iOS推送准备工作</title>
+
+</head>
+<body>
+<h4>iOS推送准备工作</h4>
+
+<p><strong>此篇日志只是用来记录iOS推送需要使用的pem文件生成过程，以及会附上一段php推送代码。</strong></p>
+
+<h6>推送准备</h6>
+
+<ol>
+<li><p>在<a href="https://developer.apple.com/account/ios/certificate/certificateList.action">https://developer.apple.com/account/ios/certificate/certificateList.action</a>里更新该项目的App ID（前提是该项目具有自己的App ID），设置其支持推送。
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/apns1.png" width=100% alt="apns1" /></p></li>
+<li><p>生成两种环境的SSL证书（测试、发布）；需要先创建CSR文件 ，之后把.certSigningRequest保存在本地
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/apns2.png" width=100% alt="apns2" /></p>
+
+<p>然后之前的页面上点击 “Creat …”
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/apns3.png" width=100% alt="apns3" /></p>
+
+<p>之后上传CSR文件
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/apns4.png" width=100% alt="apns4" /></p>
+
+<p>然后依次把生成的Development SSL和Production SSL文件下载并保存在本地。</p></li>
+<li><p>新建开发证书（一般我们的开发证书都带有通配符*，目的是能够适配所有的App ID），因为APNS不支持带有通配符的证书，所以需要新建专门的开发证书；这里不配图，之前有文档说明</p></li>
+<li><p>更新发布证书，重新下载，安装到Xcode；</p></li>
+<li><p>根据服务器的需要，将SSL证书转换成.p12或者.pem 文件。</p>
+
+<p>转换成.p12 ：
+打开“钥匙串访问”，选中左边栏“登录”，然后进行
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/apns5.png" width=100% alt="apns5" /></p>
+
+<p>导入之后，右键选中该证书，选择“导出”
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/apns6.png" width=100% alt="apns6" /></p>
+
+<p>之后输入文件名，点击确认，之后会弹出“输入密码保护框”，建议之间回车，不使用密码。</p>
+
+<p>有两种方式：1个pem文件；key.pem与cert.pem。</p>
+
+<p>转换成1个pem文件：先把文件转换成.p12文件，之后在Mac系统下的终端输入命令</p>
+
+<pre><code>openssl pkcs12 –in xxx.p12 –out  xxx.pem -nodes –clcerts
+</code></pre>
+
+<p><img src="http://7xitbl.com1.z0.glb.clouddn.com/apns7.png" width=100% alt="apns7" /></p>
+
+<p>上面的输入密码就是之前导出时输入的密码，因为在这里没有设置密码，所以直接回车就行。</p>
+
+<p>转换成2pem文件：分别将cert和key导出成p12，然后使用命令</p>
+
+<pre><code>openssl pkcs12 -clcerts -nokeys -out apns-dev-cert.pem -in apns-dev-cert.p12
+openssl pkcs12 -nocerts -out apns-dev-key.pem -in apns-dev-key.p12转成pem。
+</code></pre>
+
+<p>注意：将apns-dev-key.p12转成apns-dev-key.pem的时候必须输入passphrase，可以随意输入一个，等转换完成之后，再执行openssl rsa -in apns-dev-key.pem -out apns-dev-key-noenc.pem，将之前输入的passphrase去除，在移除的时候需要输入passphrase。</p>
+
+<p>如果要将2个pem合成1个，则可以使用以下命令：</p>
+
+<pre><code>cat apns-dev-cert.pem apns-dev-key-noenc.pem &gt; apns-dev.pem
+</code></pre>
+
+<p>备注：</p>
+
+<p>APNS详解<a href="http://blog.csdn.net/sxfcct/article/details/7939082">http://blog.csdn.net/sxfcct/article/details/7939082</a></p>
+
+<p>如何实现APNS？<a href="http://blog.163.com/ray_jun/blog/static/167053642201231144540434/">http://blog.163.com/ray_jun/blog/static/167053642201231144540434/</a></p></li>
+</ol>
+
+
+<h5>PHP推送代码</h5>
+
+<p>附：PHP推送代码 ，欢迎拷贝！</p>
+
+<pre><code>    &lt;?php
+
+    //1. 把上报的Token填入（注意不要有空格）
+    $deviceToken = '2353584a53ceaeda45d9768852219d5da82a7cfe75edc2317a4981093fde8653';
+
+    //2. message:推送的信息，如果要使用中文推送，则注释英文$message，打开中文$message
+    $message = 'push content' ;
+    //$message = 中文推送内容，不要括号 ;
+
+    //3. title:推送的标题，如果要使用中文推送，则注释英文$title，打开中文$title
+    $title =  'title';
+    //$title = 中文推送标题，不要括号 ;
+
+
+
+    // 这个是推送pem的密码，不用管.
+    $passphrase = '';
+
+    $ctx = stream_context_create();
+
+
+    //4. 替换pem的文件名，确保正确！如下面写的是yunboiPhone_Development.pem
+    stream_context_set_option($ctx, 'ssl', 'local_cert', 'yunboiPhone_Development.pem');
+    stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
+
+
+    // Open a connection to the APNS server
+    $fp = stream_socket_client(
+        'ssl://gateway.sandbox.push.apple.com:2195', $err,
+        $errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
+
+    if (!$fp)
+        exit("Failed to connect: $err $errstr" . PHP_EOL);
+
+    echo 'Connected to APNS' . PHP_EOL;
+
+    // Create the payload body
+    $body['aps'] = array(
+        'alert' =&gt; $message,
+        'title' =&gt; $title,
+        'sound' =&gt; 'default'
+        );
+
+    // Encode the payload as JSON
+    $payload = json_encode($body);
+
+    // Build the binary notification
+    $msg = chr(0) . pack('n', 32) . pack('H*', $deviceToken) . pack('n', strlen($payload)) . $payload;
+
+    // Send it to the server
+    $result = fwrite($fp, $msg, strlen($msg));
+
+    if (!$result)
+        echo 'Message not delivered' . PHP_EOL;
+    else
+        echo 'Message successfully delivered' . PHP_EOL;
+
+    // Close the connection to the server
+    fclose($fp);    
+</code></pre>
+
+<p>这个脚本是最初写给测试组测试用的，为此还专门写了篇短文说明：</p>
+
+<p><strong>前提条件</strong>：</p>
+
+<ol>
+<li>向开发组获取具体项目的推送证书——pem文件 ；</li>
+<li>推送的脚本 ——VipMobilePush.php；</li>
+<li>Mac OS系统</li>
+</ol>
+
+
+<p>说明：在windows当然也没问题，不过需要安装PHP解析器，而Mac OS自带这个功能，如有需要后续研究给出文档。</p>
+
+<p><strong>准备步骤</strong>：</p>
+
+<ol>
+<li>确保pem文件正确，和开发小组核对文件；</li>
+<li>根据上报或者询问开发，获取需要测试推送的设备Token，需要填入php脚本；</li>
+<li>根据推送内容，使用自带应用‘文本编辑’修改VipMobilePush.php（脚本里有注释，按注释1234来改）；</li>
+<li>将修改好的VipMobilePush.php和.pem文件放入同一目录下；</li>
+</ol>
+
+
+<p><strong>操作步骤</strong>：</p>
+
+<ol>
+<li>打开自带应用‘终端’，使用’cd’命令进入该目录；</li>
+<li>输入 php VipMobilePush.php，运行该php文件</li>
+</ol>
+
+
+<p>示例：</p>
+
+<pre><code> $  cd /Users/muzihuowei/Desktop/VipMobilePush 
+ $  php VipMobilePush.php
+</code></pre>
+</body>
+</html>

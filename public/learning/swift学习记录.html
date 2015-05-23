@@ -1,0 +1,485 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>Swift Learning</title>
+
+</head>
+<body>
+<p>以下内容是阅读<a href="http://numbbbbb.gitbooks.io/-the-swift-programming-language-/content/index.html">Swfit中文教程</a>的记录点</p>
+
+<p>只学习了大约70%，剩余部分没有继续，需要等到实践中查阅。</p>
+
+<h4>基础部分</h4>
+
+<ul>
+<li>⽤不可变的变量表⽰常量；使⽤新数据类型元组(tuple)，可当作返回类型；使⽤可选类型(optional)来表示值缺失的情况</li>
+<li>声明变量或者常量的时候，需要给出初始值或者声明类型，这样系统才能推断出变量或者常量的类
+型，一旦确定就不可改变</li>
+<li>println与NSLog类似，不过更强⼤一些，使⽤字符串插值就可以直接打印变量或者常量的值(添加反斜杠() 就⾏)</li>
+<li>可通过Int8.max或者Int8.min来获取最大或者最⼩值</li>
+<li>尽量不要使⽤UInt</li>
+<li>有类型推断，可以不显式类型注明</li>
+<li>数值⼦面量可以添加额外的0或者下划线来增强可读性，如100_000</li>
+<li>类型不同的数值不能进⾏运算，得先进行类型转换，如UInt16(xxx)</li>
+<li>可以使用typealias来定义类型别名</li>
+<li>使用true和false来表示布尔值</li>
+<li>以前使⽤a=1，if(a)的条件判断是ok的，现在只能这样if(a==1)，因为swift是类型安全的，
+⼀旦推断出类型不⼀致，则会报错法进⾏</li>
+<li>元组可由任意类型组成，并不要求是相同类型。
+特性A:可将元组分解成单独的常量或者变量，这样就可以单独使⽤。如let(statuscode, statusmessage)=http404error；特性B:如只需要分解⼀部分元组,则可使用下划线(_)标记；特性C:可通过下标来访问元素；特性D:可在定义元组的时候给元素命名，这样就可像属性⼀样访问元素</li>
+<li>可选类型是对OC特性nil的扩展，在oc⽅方法中可能会返回具体对象或者nil，之前可以直接使⽤返回值、调⽤用⽅方法，如果有值则正常，⽆值则什么都不干。在OC中这些特性只对对象有效，对结构体、基本的C类型和枚举类型不起作⽤。可选类型正是解决这个问题。</li>
+<li>Int?表⽰示可能有缺少值的情况，Int!表示我知道Int⾥里有值，请放⼼使用，称为强制解析。</li>
+<li>可选绑定是指将可能有缺少值的类型赋予变量或者常量，如果有值则赋值，⽆则什么都不干。可选绑定与强制解析⽐较特殊，可以在if()中直接使⽤，如if(Int!=nil)，有值则true；如if(let x= Int?)有值则true</li>
+<li>swift中nil是个明确的值，可赋予任何类型，OC中nil是指针，只可赋予对象。</li>
+<li>变量声明类型的时候，可以根据是否含有缺少值声明为普通可选类型(?)和隐式可选类型(!)。如果声明为普通可选类型(?)，则初始值就是nil，则需要在使⽤变量的时候使⽤可选绑定或者强制解析。如果隐式可选类型(!)，则可以直接使用，但是如果该变量在取值的时候出现了为nil的情况则会报运⾏时错误。</li>
+</ul>
+
+
+<hr />
+
+<h4>基本运算符</h4>
+
+<ul>
+<li>if (x=y){}，在swift中是错误的，因为=不返回值，赋值操作都不返回值。
+swift运算符会防⽌溢出，另外提供需要溢出的运算符&amp;，如加法a &amp;+ b;</li>
+<li>求余运算符，a%b，a%-b，会对b的符号忽略，swift中还可以对浮点数取余。</li>
+<li>提供了⼀元运算符“-”，取负数的操作，另外还提供了“+”给强迫症</li>
+<li>⾃增自减运算符有返回值</li>
+<li>新增“===”和“!==”，表⽰为恒等于和恒不等于</li>
+<li>新增空和运算符“??”,是由于可选类型的引⼊，为了使⽤方便引⼊的运算符，如 a??b 可以表示为: a != nil? a! : b</li>
+<li>新增区间运算符 “..”，表⽰区间，很灵活，相应的还有半开区间符 “..&lt;”</li>
+</ul>
+
+
+<hr />
+
+<h4>字符串和字符</h4>
+
+<ul>
+<li>字符串可以使⽤转义字符，也可以使⽤Unicode标量，如\u{xxx}</li>
+<li>swift中的可变字符串与不可变字符串跟其他变量一样，通过var和let来指定</li>
+<li>swift中的字符串是值类型，值类型在常量、变量赋值操作或者函数、⽅法中传递时都会进⾏值拷贝。实际编译时，swift编译器会智能识别是否真正需要拷贝。</li>
+<li>字符串可以是字符的集合，还可以通过for-in来枚举字符</li>
+<li>countElements()⽤来计算字符串的⻓度，并且是以Unicode字符来计算的。不同于NSString中的
+length是基于UTF-16来计算，对应的swift中使⽤方法utf16count来表⽰</li>
+<li>字符串拼接可使用运算符“+”与“+=”</li>
+<li>字符串的⽐较可使用运算符“==”，字符串可通过属性uppercaseString和lowercaseString来获取大小写</li>
+<li>可以通过三种Unicode兼容的⽅式访问字符串的值:utf8属性、utf16属性、unicodeScalars的 Unicode21位标量值属性</li>
+</ul>
+
+
+<hr />
+
+<h4>集合类型</h4>
+
+<ul>
+<li>Swift中数组和字典中的存储的数据类型必须是明确的，并且只能存储⼀种类型，但不限于对象，这与OC不⼀一样，OC只限制存⼊对象，对类型没有更多要求。Swift中存储的类型可通过显式标注或类型推断</li>
+<li>推荐使⽤[SomeType]的⽅式来使用数组，可使⽤isEmpty来查看数组是否为空，可使⽤用append()或者+=来拼接数组</li>
+<li>新特性，可以使⽤运算符“...”⼀次性改变⼀系列的数组值，并且不要求前后个数一致。</li>
+<li>新特性，可以使用数组的enumerate函数来进⾏遍历，可以同时访问元素和下标。</li>
+<li>可以通过<a href="Count:%20,%20repeatedValue:">SomeType</a>来构造特定⼤小并且数组⼀致的数组</li>
+<li>字典需要有明确的KeyType和ValueType，并且要求KeyType是可hash的，目前所有的Swift数据类型都是可以hash的</li>
+<li>可通过dic[“Key”]= nil来移除value</li>
+<li>可通过元组来遍历</li>
+<li>Swift的数组和字典底层都是通过泛型集合来实现的</li>
+<li>不可变的数组与字典原则上都是不可改变⼤小与内容的，但是在不可变数组中依然可以改变索引所
+对应的值</li>
+</ul>
+
+
+<hr />
+
+<h4>控制流</h4>
+
+<ul>
+<li>Swift所提供的控制流与C⼀致，不过功能⼤大增强，特别是Switch Case</li>
+<li>for-in可使⽤运算符“...”来指定区间，还可以使⽤下划线“_”来表⽰忽略对值的访问</li>
+<li>Switch必须是完备的，并且会自动break，一个case可以使⽤“,”来添加多个条件，case还可以使⽤区间符号“...”，当case中有元组，还可以使⽤下划线“_”来匹配所有可能的值。可以在Case中进⾏值绑定，绑定之后则可在当前case中使用。case中还可以使用where来添加额外的条件判断</li>
+<li>每个case都必须要有⼀句，可使用break来跳过该case。</li>
+<li>由于Swift每个case都会⾃自break，为了照顾需要原有switch case代码逻辑或者部分爱好者的习
+惯，添加“fallthrough”关键词来进⾏“贯穿”case</li>
+<li>可以将循环体或者switch case加上标签，通过break、continue来指定需要操作的对象，增加灵活性。</li>
+</ul>
+
+
+<hr />
+
+<h4>函数</h4>
+
+<ul>
+<li>很灵活</li>
+<li>可使⽤元组作为返回值</li>
+<li>可以有外部参数名，使⽤用空格与本地参数名进⾏区分。如果只写⼀个参数名，则默认为本地参数名，如果写两个参数名(中间⽤空格隔开)，则第一个是外部参数名，第二个是本地参数名。还可以使用简便的⽅法，在参数名前⾯添加“#”，这样就可以写⼀个参数名，同时命名外部、本地参数名</li>
+<li>可为参数指定默认值，这样在调⽤的时候就可以忽略这个参数，使得函数定义更加灵活。Swift会⾃动给指定默认值的参数添加外部参数名。外部参数名也为兼容OC代码提供优雅的⽅式</li>
+<li>⼀个函数可以使⽤一个可变参数，具体使⽤方法是:func aFuntion(numbers:Int...)，就是在参数类型后⾯添加运算符“...”，可变参数必须为最后⼀个参数，⺫的是避免混淆</li>
+<li>参数默认是常量，不可修改，如果需要修改参数，则可在参数名前⾯添加关键词“var”</li>
+<li>针对需要在函数内修改外部变量值的需求，Swift提供了“inout”关键词来实现，可在参数名前面添加 “inout”，并且不能是可变参数和不能有默认值。在外部调用函数的时候，传⼊的参数需加上“&amp;”来表示内部可能会改变该值，并且设定不能传⼊常量或者字⾯面量</li>
+<li>通过参数类型和返回值类型来决定函数的类型，这样函数就可以被当作常量或者变量来使用。在定
+义函数的时候，同样可以指定类型或者进⾏类型推断。这种特性使得函数也可以当作参数来使用。新特性,可以定义嵌套函数</li>
+</ul>
+
+
+<hr />
+
+<h4>闭包</h4>
+
+<ul>
+<li>闭合并包裹上下文的常量和变量，简称闭包</li>
+<li>闭包表达式{(parameters)-> return type in statement}</li>
+<li>在OC中当闭包函数很⻓时，就会显得函数很不雅观，并且可读性不好。Swift中提供了尾随闭包正好解决这个问题。使⽤用的条件是，闭包作为函数的最后⼀个参数</li>
+<li>Swift中不再需要手动设置关键词“<strong>block ””</strong>weak”等，会⾃动根据上下⽂判断是拷⻉还是引用</li>
+<li>闭包和函数都是引⽤类型，赋予变量或者常量的时候，是指赋予闭包，⽽⾮闭包内容</li>
+</ul>
+
+
+<p>Swift中使⽤各种手段来达到闭包简洁的目的，示例:</p>
+
+<ol>
+<li><p>原函数</p>
+
+<pre><code> func backwards(s1:String , s2:String) -&gt; Bool { return s1&gt;s2 }
+
+  var reversed = sorted(names, backwards )
+</code></pre></li>
+<li><p>使⽤用闭包改写</p>
+
+<pre><code> var reversed = sorted( names, {(s1: String , s2:String ) -&gt; Bool in return s1&gt;s2 })
+</code></pre></li>
+<li><p>由于sorted函数参数类型明确为Bool，并且闭包中含有单⼀表达式，该表达式返回Bool，则没有歧义，可以隐去return</p>
+
+<pre><code> var reversed = sorted (names, {(s1:String , s2:String ) -&gt; Bool in s1&gt;s2 })
+</code></pre></li>
+<li><p>由于Swift具有使⽤上下文进⾏推断的能力，所以参数类型定义可以隐去var</p>
+
+<pre><code> reversed = sorted(names, {(s1, s2) -&gt; Bool in s1&gt;s2})
+</code></pre></li>
+<li><p>Swift还为内联函数提供参数名缩写功能，并且关键词“in”也可以省去</p>
+
+<pre><code> var reversed = sorted(names, {$0&gt;$1})
+</code></pre></li>
+</ol>
+
+
+<p>Swift中还提供了运算符函数，如字字符串⼤于号函数“>”，其参数为两个String，返回值为Bool，正好与上⾯面的sorted函数第⼆个参数类型一致，利用此特性，甚至可以改写成:</p>
+
+<pre><code>    var reversed = sorted(names, &gt;) 
+</code></pre>
+
+<p>尼玛，第⼀次看到得疯了，这么灵活，太容易混乱吧！</p>
+
+<hr />
+
+<h4>枚举</h4>
+
+<ul>
+<li>很灵活</li>
+<li>枚举是First-Class类型，⽀持很多只被类所⽀持的特性</li>
+<li>不像OC，在Swift中在枚举被创建的时候，不会被隐式地赋予初始值</li>
+<li>枚举的概念已经和OC中⼤不一样了</li>
+</ul>
+
+
+<p>枚举⽰例:</p>
+
+<pre><code>enum CompassPoint {
+case North case West case South case East
+}
+
+
+enum Planet {
+case Mercury,Venus
+
+ }
+</code></pre>
+
+<p>引⼊枚举相关值的概念，就是与枚举case相关的值，可在使⽤case的时候直接使⽤相关值。示例 </p>
+
+<pre><code>enum Barcode{
+case UPCA(Int ,Int, Int)
+case QRCode(String)
+} 
+</code></pre>
+
+<p>这⾥的枚举必然⽀持OC、C的枚举，就是提供原始值的概念，与此前差不多</p>
+
+<hr />
+
+<h4>类与结构体</h4>
+
+<ul>
+<li>类与结构体有很多的相似点，所以这里放在一起讲</li>
+<li>都是通过构造器语法来创建实例</li>
+<li>属性访问还是使⽤点语法，并且在Swift中可以设置⼦属性</li>
+<li>结构体可以使用构造器对每个属性赋予初始值，类则不⾏</li>
+<li>结构体是值类型，在赋值或者传参中都会对值进⾏拷贝，枚举亦然。所有的基本数据类型都是值类
+型</li>
+<li>类是引⽤类型，为了判断不同的类⽰例是否引⽤同⼀个类⽰例，引入两个运算符“===”和“!= =”，等价于与不等价于。a===b与a==b的区别，前者⽤与判断是否引⽤相同类实例，后者用于判断内容是否相等。如果a===b，那么a==b必定成⽴，反之不成⽴。所以“===”也可以称为恒等于</li>
+<li>Swift中定义的常量或者变量引⽤一个引⽤类型的实例与C指针相似，但是并不像C中⼀样指向内存中的某个地址</li>
+<li>类与结构体的相似点有：可定义属性⽤来存储值，可定义⽅法提供功能，定义附属脚本访问值，定
+义构造器⽤于生成初始值，通过扩展增加默认实现的功能，符合协议以对某类提供标准功能</li>
+<li>类比结构多的功能有：可以继承，可以运⾏时检查和解释类⽰例的类型，析构器允许释放任何其分
+配的类型，有引用计数并可对⼀个类多次引⽤</li>
+<li>类与结构体的区别还有:类是引⽤类型，结构体是值类型；类没有默认的逐⼀构造器功能，只能通
+过添加⾃定义构造器实现，⽽结构体自带该功能</li>
+<li>可根据自己的需求选择是选择类还是结构体</li>
+<li>Swift中的字符串、数组、字典都是以结构体的形式实现的，⽽在OC中是以类对形式实现的。意味着
+在Swift中是值类型，赋值或传参都是值拷⻉，OC中是引⽤类型，赋值或传参是引⽤操作</li>
+</ul>
+
+
+<hr />
+
+<h4>属性</h4>
+
+<ul>
+<li>分为两大类：类型属性和实例属性</li>
+<li>实例属性还分为计算属性和存储属性。计算属性可⽤用于类、结构体和枚举，存储属性可⽤于类和结
+构体</li>
+<li>针对不同实例中共享数据，新引⼊类型属性，区别与实例属性，不论类型有多少实例，都只有⼀份
+类型属性，⽽实例属性则互相独⽴不影响。值类型(结构体和枚举)可以定义存储型和计算型的类型属性，引用类型(类)则只能定义计算型的类型属性</li>
+<li>枚举不能存实例属性，类不能存类型属性。任何值类型和引用类型都可以使⽤计算属性。使⽤关键词“static”来定义类型属性</li>
+<li>可以使⽤关键词“lazy”来延迟加载属性，属性必须得是变量，因为常量的属性必须在结构体或类构造完成前存在初始值</li>
+<li>Swift中简化了属性的实例变量与访问⽅法，其中的属性没有对应的实例变量，后端的存储也⽆法直接访问</li>
+</ul>
+
+
+<p>计算属性的概念为不存储值，提供⼀个getter来获取值，并提供可选的setter来间接设置其他属性或者变量的值。当只有getter的时候,可以去掉关键词“get”和“{}”。如下所⽰:
+原实例</p>
+
+<pre><code>    struct AlternativeRect{
+
+        var origin = Point()
+
+        var center :Point {
+            get{
+            return (x:3,y:6) }
+            ￼set{
+            origin.x = 3 origin.y = 3 }
+
+        struct AlternativeRect{
+            var origin = Point() var center: Point{
+            return (x:3,y:6) }
+    }
+</code></pre>
+
+<p>可使⽤用willSet观察器和didSet观察器，willSet传⼊的是新值，didSet传⼊的是⽼值，如果在didSet中进行属性赋值，则会生效。注意，文档说明可以给延迟加载属性之外的属性添加观察器</p>
+
+<hr />
+
+<h4>方法</h4>
+
+<ul>
+<li>结构体和枚举中也可以定义⽅方法</li>
+<li>通过点语法调⽤用⽅方法</li>
+<li>可以通过下划线“_”加在参数名前面，指定不要有外部参数名</li>
+<li>如果与参数名不冲突，则可以不指定self来访问属性</li>
+<li>结构体和枚举是值类型，一般⽆法在实例方法中改变其值。但是存在这种需求，引⼊关键词 “mutating”来解决这个问题。所改变的结构体或枚举必须是变量，不能是常量</li>
+<li>给类添加类型方法，就是在⽅法前添加关键词“class”，而给结构体和枚举添加类型方法就是在⽅法前添加关键词“static”</li>
+</ul>
+
+
+<hr />
+
+<h4>下标脚本</h4>
+
+<ul>
+<li>数组、字典中很有⽤，例如Array[5]，dic[@“key”]</li>
+<li>通过下标脚本可以给⾃定义的类、结构体、枚举定义快速访问或者设置的下标</li>
+</ul>
+
+
+<p>示例:
+￼￼</p>
+
+<pre><code>    subscript( index: Int ) —&gt; Int {
+
+         get{
+
+        } 
+
+        set(newValue){
+        } 
+
+    }
+</code></pre>
+
+<p>下标参数⼀般都是⼀个参数，不过Swift并没有规定⼊参的个数</p>
+
+<hr />
+
+<h4>继承</h4>
+
+<ul>
+<li>OC中创建的类必须有基类，在Swift中如果定义时不指定基类，那么⾃己就是基类</li>
+<li>如果需要重写，必须添加关键词“override”</li>
+<li>与OC⼀致，通过super来访问⽗类的属性、⽅法或下标脚本</li>
+<li><strong>重写属性注意点：可将只读属性重写为读写属性，但是不能将读写属性重写为只读属性；提供了
+setter，就必须提供getter</strong></li>
+<li>可添加关键词“final”来防⽌重写</li>
+</ul>
+
+
+<hr />
+
+<h4>构造过程</h4>
+
+<ul>
+<li>可以设置不同的构造参数来定制构造过程</li>
+<li>Swift会默认将构造器中的本地参数名转为外部参数名(如果没有设置外部参数名的话)，此外可以在本地参数名前⾯添加关键词“_”来屏蔽系统的默认⾏为，意为不要外部参数名</li>
+<li>常量属性只能在构造器中修改，并且不能在⼦类中修改</li>
+<li>为了避免错误地初始化，如果定制了构造器，则不能访问到默认的构造器，或者逐一构造器</li>
+</ul>
+
+</body>
+</html>

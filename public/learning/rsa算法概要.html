@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>RSA算法概要</title>
+
+</head>
+<body>
+<h4>RSA算法概要</h4>
+
+<p>1977年，三位数学家Rivest、Shamir 和 Adleman 设计了一种非对称加密算法，可以实现非对称加密，这种算法就用他们三个人的名字命名，叫做RSA算法。</p>
+
+<p>所谓非对称加密，是指加密与解密使用不同的密钥来加密和解密。RSA算法中，使用<code>(n,e)</code>用来表示公钥，使用<code>(n,d)</code>表示私钥。</p>
+
+<p>主要有两种使用方式：</p>
+
+<ol>
+<li>使用公钥来加密发出的信息，使用私钥解密接收的信息；</li>
+<li>使用私钥加密发出的数据，并将加密之后的数据加在原有数据之后，这就是所谓的“数字签名”，如果接收者能用公钥解密，则说明发送方身份合法；</li>
+</ol>
+
+
+<p>那么n、e、d是如何产生的呢？</p>
+
+<ol>
+<li>任意选取两个不相等的质数p和q，计算出n=p*q；</li>
+<li>根据公式φ(n)=(p-1)*(q-1)计算出φ(n)的值；</li>
+<li>随机选取一个整数e，并满足条件1&lt; e &lt;φ(n)且e与φ(n)互质；</li>
+<li>计算出e对于φ(n)的模反元素d；</li>
+</ol>
+
+
+<p>经过这四个步骤，就可得出公钥与私钥。过程中出现的数字有<code>p、q、e、φ(n)、d</code>，其中<code>p、q、e</code>为选取的值，<code>φ(n)、d</code>为计算出来的值。</p>
+
+<p>一般情况下，公钥是公开的，那么如果已知n和e，推导出d的条件是什么？
+根据上述四个步骤得知，d是e与φ(n)的模反元素，并且已知公式φ(n) = (p-1)*(q-1) ，因此只要找到p、q就能够推导出私钥。
+也就是说，只要正确地把n<code>因式分解</code>，就能够推导出d，从而破解RSA算法！</p>
+
+<p>这就说明，对整数做因数分解的难度决定了RSA算法的可靠性。</p>
+
+<p>不过令人安心的是，目前还没有一种算法能够快速地对整数做极大分解，因此维基百科有这段话：</p>
+
+<p>对极大整数做因数分解的难度决定了RSA算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA算法愈可靠。
+假如有人找到一种快速因数分解的算法，那么RSA的可靠性就会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的RSA密钥才可能被暴力破解。到2008年为止，世界上还没有任何可靠的攻击RSA算法的方式。
+只要密钥长度足够长，用RSA加密的信息实际上是不能被解破的。</p>
+
+<p><strong>使用RSA算法的注意事项</strong>：</p>
+
+<ol>
+<li>此算法只能加密比n值要小的整数；</li>
+<li>1997年后开发的系统，用户应使用1024位密钥，证书认证机构应用2048位或以上。</li>
+</ol>
+
+
+<p>参考：</p>
+
+<p><a href="http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html">http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html</a>
+<a href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html">http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html</a>
+<a href="http://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95">http://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95</a></p>
+</body>
+</html>

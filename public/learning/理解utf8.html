@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>理解UTF8</title>
+
+</head>
+<body>
+<hr />
+
+<h4>理解UTF8</h4>
+
+<h5>字符乱码问题</h5>
+
+<p>前些天被字符乱码问题折腾得够呛，纠结了好几天。
+问题如下：</p>
+
+<p>将<a href="http://ziyuansoso.com/search?wd=%E5%A5%BD&amp;p=0&amp;s=1000&amp;ie=utf8">http://ziyuansoso.com/search?wd=%E5%A5%BD&amp;p=0&amp;s=1000&amp;ie=utf8</a>返回的JSON数据解析出来，然后分类展示。
+使用的是ASI的接口，回调之后将request的responseData使用系统解析库解析</p>
+
+<pre><code>        NSError *error = nil;
+        id jsonObj = [NSJSONSerialization JSONObjectWithData:request.responseData
+                                             options:NSJSONReadingMutableContainers
+                                               error:&amp;error];
+</code></pre>
+
+<p>结果发现解析失败，返回错误码3840.</p>
+
+<p>接下来使用requset.responseString打印出返回的titlle字段含有乱码，并且在ASI的request调用responseString时，发现其使用的encoding是NSISOLatin1StringEncoding ，既是ASI默认的编码方式。</p>
+
+<pre><code>        “"title":"TVBNOW ä¸–å￥½ç^”
+</code></pre>
+
+<p>追踪下去，继续发现服务器没有在responseHeader中设置charset为UTF8，遂手动将网络请求返回的数据使用UTF8编码转换一次</p>
+
+<pre><code>        NSString *string = [[NSString alloc] initWithData:request.responseData encoding:NSUTF8StringEncoding];
+</code></pre>
+
+<p>结果发现string 为 nil ！！</p>
+
+<p>然后将<a href="http://ziyuansoso.com/search?wd=%E5%A5%BD&amp;p=0&amp;s=1000&amp;ie=utf8">http://ziyuansoso.com/search?wd=%E5%A5%BD&amp;p=0&amp;s=1000&amp;ie=utf8</a>使用Mac版的Chrome打开，发现一样是乱码，不过当手动选择编码为UTF8之后，就一切正常了。</p>
+
+<pre><code>        “"title":"TVBNOW ä¸–å￥½ç^”  —&gt;"title":"TVBNOW 世好爸"
+</code></pre>
+
+<p>继续用其他进行对比，使用Safari，正常！安卓弟兄们的代码运行解析正常！</p>
+
+<p>检查了各个逻辑，并尝试了很多种方案，最后有几个内容是明确的：</p>
+
+<ol>
+<li>服务器没有设置charset为UTF8是不对，但是也不应该影响解析；</li>
+<li>使用Mac版浏览器，第一次打开会存在乱码，但是选UTF8转码后就正常；</li>
+<li>使用iOS平台主流的浏览器打开，都是乱码，使用安卓平台自带的浏览器也是乱码；</li>
+<li>安卓弟兄们的代码运行正常，使用的解析代码是安卓内置的Apache HttpClient库，并没有做其他处理，就只是转成UTF8；</li>
+<li>将返回的数据到<a href="http://i-tools.org/charset">http://i-tools.org/charset</a>中检测，显示其确实是UTF8编码</li>
+</ol>
+
+
+<p>我们使用的是iOS自带的字符转码API，但是为什么不成功，不解不解？？？？！！！
+经过了3天。。。</p>
+
+<p>最后在服务器、团队成员、主管的共同参与讨论之下，才得出结论：</p>
+
+<p>原因是虽然请求的是UTF8编码的数据，但返回的数据中，有些字段不是UTF8编码，则导致转码失败！
+应该对title字段，单独进行一次UTF8编码。</p>
+
+<p>之前就应该使用二进制查看器，确定是否是UTF8。</p>
+
+<h5>UTF8的理解</h5>
+
+<p>下面是自己对Unicode和UTF8的理解。</p>
+
+<p>Unicode就是一张巨大的字符 - 编码的对应表，它将世界上几乎所有的字符都囊括其中。将字符都用唯一的编码来表示，如U+674E表示李，如U+0639表示阿拉伯字母Ain。</p>
+
+<p>注意，Unicode只定义了对应表，并没有说明这种编码是如何在计算机世界存储的。</p>
+
+<p>UTF8就是一种存储方式，是不定长的，以8bit为最小单位的存储方式。</p>
+
+<p>在<a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html">阮一峰的博客</a>中能够看到下图：
+<img src="http://7xitbl.com1.z0.glb.clouddn.com/utf8unicode.png" alt="utf8unicode" /></p>
+
+<p>可以看到，UTF8的编码方式是使用字节左端来标识：</p>
+
+<ol>
+<li>如果左边第一位为0，则当前字节就为一个完整的字符；</li>
+<li>如果左边第一位为1，并且第二位为0，则当前字节为字符的一部分；</li>
+<li>如果左边第一位为1，并且第二位也为1，则表示当前字节为字符的头字节，该字节有多少个1，就表示有多少个字节来表示当前字符；</li>
+</ol>
+
+
+<p>说说UTF8的派生物：</p>
+
+<ol>
+<li>在Windows中，许多Windows程序（如自带的记事本）会在UTF8文件的开头加入一段字节串EF BB BF ，如果没有预期要处理UTF8的文本编辑器或者浏览器，就会显示为ISO-8859-1字符串”ï»¿”（就像本文开头说到的，服务器没有在responseHeader中设置charset）；</li>
+<li>Java同时支持标准UTF8和变种UTF8，变种UTF8的特殊点为空字符(U+0000)使用两个字节存储，以及最多使用3个字节来表示Unicode；</li>
+</ol>
+
+
+<p>参考：</p>
+
+<p><a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html">http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html</a></p>
+
+<p><a href="http://zh.wikipedia.org/wiki/UTF-8">http://zh.wikipedia.org/wiki/UTF-8</a></p>
+
+<p><a href="http://docs.oracle.com/javase/7/docs/api/java/io/DataInput.html#modified-utf-8">http://docs.oracle.com/javase/7/docs/api/java/io/DataInput.html#modified-utf-8</a></p>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>如何在AppStore创建新应用</title>
+
+</head>
+<body>
+<h3>以下步骤简要说明创建新应用的过程：</h3>
+
+<ul>
+<li>创建App ID</li>
+<li>创建发布证书</li>
+<li>登录 iTunes connect，创建App</li>
+</ul>
+
+
+<h4>一、创建App ID (目的:在app store上⽤用来唯⼀一标识app)</h4>
+
+<p><img src="http://7xitbl.com1.z0.glb.clouddn.com/Screen%20Shot%202015-05-22%20at%2011.08.02%20PM.png" width=100% alt="" /></p>
+
+<p>有两处填项:App ID Description、Bundle Identify(App ID suffix)</p>
+
+<p><strong>description</strong>：这个是描述，在创建发布证书的时候需要⽤到，⻅名知意就好，只是⽤来告诉⾃己这是什么应用程序的ID</p>
+
+<p><strong>Bundle Identify</strong>：这个要认真写，要确保和你账号中现有的Bundle Identify不⼀样，这⾥的信息会显示在itunes connect⾥里的app information中,它代表的是Bundle ID;</p>
+
+<p>示例:
+description : lixianHD</p>
+
+<p>Bundle Identify : com.xunlei.lixianxiazaiHD</p>
+
+<p>填好之后,会在这⾥显⽰出来</p>
+
+<p><img src="http://7xitbl.com1.z0.glb.clouddn.com/7022F039-7B28-4215-923C-9BBF00E5D956.png" width=100% alt="" /></p>
+
+<p>通过在其后面加Bundle Identify就能够唯一标识你的应⽤程序。</p>
+
+<hr />
+
+<h4>二、创建发布证书(目的: 需要⽤发布证书来编译发布程序包,并通过发布证书来唯⼀标识程序包)</h4>
+
+<p><img src="http://7xitbl.com1.z0.glb.clouddn.com/7C474AB2-91CF-4E10-91F1-D23BC6430C72.png" width=100% alt="" /></p>
+
+<p>有三处所填项:Destribution Method 、Profile Name 、App ID</p>
+
+<p><strong>Destribution Method</strong>: 选择App store</p>
+
+<p><strong>Profile Name</strong>:是此发布证书的名字，要和现在已有的发布证书区分开来，且要⻅名知意，一般会加Distribution的后缀</p>
+
+<p><strong>App ID</strong>:选择之前创建的App ID，这⾥里显示的是App ID的description;</p>
+
+<p>⽰例:</p>
+
+<p>profile Name :lixianHD_ Distribution</p>
+
+<p>App ID: lixianHD(这个是迅雷离线下载App ID的 description)
+完成之后，会在这⾥显示:</p>
+
+<p><img src="http://7xitbl.com1.z0.glb.clouddn.com/08F95124-2B44-482E-92FA-5C36D8325357.png" width=100% alt="" /></p>
+
+<p>创建完成之后,点击download，下载保存起来，在打发布程序包的时候要⽤到;</p>
+
+<hr />
+
+<h4>三、登录 iTunes connect，点击Add New App(目的:编写应用程序的类型、版本号、发布市场等信息)</h4>
+
+<p>之前的是创建应⽤程序唯⼀标识的身份，现在才是创建应用程序所该具备的信息。
+经过上诉两个步骤之后,还要准备的有:</p>
+
+<ol type="a">
+<li>确定应⽤程序的名称，这个要在App store上展示;</li>
+<li>确定SKU Number，这个是⽤来区别于同一开发者账号下的程序标识 (详⻅下⽂说明);</li>
+<li>确定应⽤的⾯向市场，一般为China ;</li>
+<li>1024*1024的应⽤程序图标和至少⼀张应⽤截图;</li>
+</ol>
+
+
+<p>点击 Manage Your Applications，然后点击 Add New App ;</p>
+
+<p><img src="http://7xitbl.com1.z0.glb.clouddn.com/BAC8BFBA-30E8-404C-A42D-C15E5B87A8A2.png" width=100% alt="" /></p>
+
+<p>这⾥有三处填框: App Name\SKU Number\Bundle ID，这三者创建了之后,以后就不能修改;</p>
+
+<p><strong>App Name</strong>: 这个名称会在App store上显⽰示,提交后就不能再改;</p>
+
+<p><strong>SKU Number</strong>: SKU是物流管理的术语，⽤来标识产品，这⾥里的SKU Number是⽤来标识你的应⽤程序，只要和同⼀帐号下的程序不⼀样就行;</p>
+
+<p><strong>Bundle ID</strong>:也可以说App ID，它就是应⽤程序的身份证，用来在App store中唯一标识⾃己，这个选择之前创建的App ID就行;</p>
+
+<p>⽰例:</p>
+
+<p>选择 iOS App ;</p>
+
+<p>Default Language :默认就是中文，选中⽂就好</p>
+
+<p>App Name:迅雷离线下载HD ;</p>
+
+<p>SKU Number:lixianHD</p>
+
+<p>Bundle ID:选择 com.xunlei.lixianHD;</p>
+
+<p>之后进⼊应⽤用程序详细信息的填写界⾯面:</p>
+
+<p><img src="http://7xitbl.com1.z0.glb.clouddn.com/Screen%20Shot%202015-05-22%20at%2011.21.55%20PM.png" width=100% alt="" /></p>
+
+<p><strong>Availability Date</strong> : 就是默认时间;</p>
+
+<p><strong>Price Tier</strong>: 如果免费就选free ,如果收费就选择相应的价钱;</p>
+
+<p><strong>Discount for educational institutions</strong> :按照默认;</p>
+
+<p><strong>Custom B2B App</strong>:默认不勾选;</p>
+
+<p><strong>Specific Stores</strong>:⼀般我们的市场都是⾯向中国大陆 , 选择China !</p>
+
+<p>接着输⼊程序基本信息:</p>
+
+<p><img src="http://7xitbl.com1.z0.glb.clouddn.com/Screen%20Shot%202015-05-22%20at%2011.23.05%20PM.png" width=100% alt="" /></p>
+
+<p>这些按规矩来填，填写提交之后可以修改;</p>
+
+<p>接着上传应用程序图标和截图:</p>
+
+<p><img src="http://7xitbl.com1.z0.glb.clouddn.com/Screen%20Shot%202015-05-22%20at%2011.23.51%20PM.png" width=100% alt="" /></p>
+
+<p>我上传的时间是2012年10⽉月30⽇日，当时系统已经要求图标尺⼨为1024x1024，之前是512x512 ;</p>
+
+<p>接下来还需要填写联系人信息、程序的描述、关键词、支持URL等等。这些都可以在后续修改。</p>
+</body>
+</html>
