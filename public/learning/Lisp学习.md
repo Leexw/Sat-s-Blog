@@ -10,5 +10,8 @@
 
 [Recursive Functions of Symbolic Expressions and Their Computation by Machine, Part I](http://www-formal.stanford.edu/jmc/recursive/recursive.html)
 
+[WIKI](http://zh.wikipedia.org/wiki/LISP)
+
+[Thrift VS Protobuf](http://stuartsierra.com/2008/07/10/thrift-vs-protocol-buffers)
 
 另外，这篇文章说了[程序员都应该必读的10篇文章](http://blog.fogus.me/2011/09/08/10-technical-papers-every-programmer-should-read-at-least-twice/)，有空可以都读一下。
